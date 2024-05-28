@@ -11,14 +11,12 @@ bool isInt(String str) {
 }
 
 main() {
-  print('Saisis ton nom :');
-  String nom = stdin.readLineSync();
-  print('Saisis ton age :');
+  print('Saisis un nombre :');
   String age = stdin.readLineSync();
-  while(!isInt(age)||int.parse(age)<0||int.parse(age)>100){
-    print('(format invalide) Saisis ton age :');
+  while(!isInt(age)){
+    print('(format invalide) Saisis un nombre :');
     age = stdin.readLineSync();
   };
   int n = int.parse(age);
-  print(nom+" tu as 100 ans dans "+(100-n).toString()+" ans");
+  print((n%2==0)?"pair":"impair");
 }
