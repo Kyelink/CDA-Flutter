@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 
 
 class Item {
-  bool isCrossed=false;
   String name="";
+  bool isCrossed=false;
   Item(String str){name=str;}
 }
 
@@ -29,20 +29,40 @@ class MyApp extends StatelessWidget {
             // Get the item at the specified index
             final item = items[index];
             // Return a ListTile widget that displays the item's text
-            TextDecoration getLineThrough(){return item.isCrossed?TextDecoration.lineThrough:TextDecoration.none;}
-            return ListTile(
-              title: Text(item.name, style: TextStyle(decoration: getLineThrough() )),
-              onTap: () {
-                // Do something when the list tile is tapped
-                item.isCrossed=true;
-                
-                
-                print('You just clicked on ${item.name} ${getLineThrough()}');
-              },
-            );
+            
+            return MyTile(item);
           },
         ),
       ),
     );
+  }
+}
+
+class MyTile extends StatefulWidget {
+  Item it=Item("");
+  MyTile(Item i){it=i;}
+  @override
+  State<MyTile> createState() => _MyTileState(it);
+}
+
+class _MyTileState extends State<MyTile> {
+
+  Item item=Item("");
+  _MyTileState(Item i){item=i;}
+
+  TextDecoration getLineThrough(){return item.isCrossed?TextDecoration.lineThrough:TextDecoration.none;}
+  
+  @override
+  Widget build(BuildContext context) {
+    return ListTile(
+              title: Text(item.name, style: TextStyle(decoration: getLineThrough() )),
+              onTap: () {
+                // Do something when the list tile is tapped
+                setState(() {
+                  item.isCrossed=!item.isCrossed;
+                });
+                
+              },
+            );
   }
 }
