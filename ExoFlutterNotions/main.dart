@@ -7,21 +7,9 @@ class Item {
   Item(String str){name=str;}
 }
 
-void main() => runApp(MyApp());
+final items = [Item('To do 1'),Item('To do 2'),Item('To do 3')];
 
-class MyApp extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    // Create a list of items to display in the list view
-    final items = [Item('To do 1'),Item('To do 2'),Item('To do 3')];
-
-    return MaterialApp(
-      title: 'Flutter ListView.builder Example',
-      home: Scaffold(
-        appBar: AppBar(
-          title: Text('ListView.builder Example'),
-        ),
-        body: ListView.builder(
+ListView listV =  ListView.builder(
           // Use the itemCount property to specify the number of items in the list
           itemCount: items.length,
           // Use the itemBuilder property to specify how each item should be displayed
@@ -32,8 +20,38 @@ class MyApp extends StatelessWidget {
             
             return MyTile(item);
           },
+        );
+
+void main() => runApp(MyApp());
+
+class MyApp extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    // Create a list of items to display in the list view
+    
+
+    return MaterialApp(
+      title: 'Flutter ListView.builder Example',
+      home: Scaffold(
+        appBar: AppBar(
+          title: Text('ListView.builder Example'),
         ),
-      ),
+        body: Column(children:[listV])
+        //   ListView.builder(
+        //   // Use the itemCount property to specify the number of items in the list
+        //   itemCount: items.length,
+        //   // Use the itemBuilder property to specify how each item should be displayed
+        //   itemBuilder: (context, index) {
+        //     // Get the item at the specified index
+        //     final item = items[index];
+        //     // Return a ListTile widget that displays the item's text
+            
+        //     return MyTile(item);
+        //   },
+        // ),
+        
+        )
+      
     );
   }
 }
@@ -51,7 +69,7 @@ class _MyTileState extends State<MyTile> {
   _MyTileState(Item i){item=i;}
 
   TextDecoration getLineThrough(){return item.isCrossed?TextDecoration.lineThrough:TextDecoration.none;}
-  
+
   @override
   Widget build(BuildContext context) {
     return ListTile(
@@ -66,3 +84,4 @@ class _MyTileState extends State<MyTile> {
             );
   }
 }
+
